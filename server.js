@@ -63,18 +63,27 @@ td = (b*v) / (a-v);
 console.log("Dampfdruck = "+ Math.round(dd*100)/100 + " mbar");
 console.log("Absulute Feuchte = "+ Math.round(af*100)/100 + " g/m³");
 console.log("Taupunkt = "+ Math.round(td*100)/100 + " °C");
+
+var dbtp = Math.round(td*100)/100;
+
+var db = {
+    temperatur: result.temperatur,
+    feuchtigkeit: result.feuchtigkeit,
+    luftdruck: result.luftdruck,
+    taupunkt: dbtp
+}
         
-function saveData(result) {
+function saveData(db) {
     influx.writePoints([{
         measurement: "sensor",
         // tags: {
         //     keywords: (result.tags.length > 0 ? result.tags.join(",") : [])
         // },
         fields: {
-            temperatur: result.temperatur,
-            feuchtigekeit: result.feuchtigekeit,
-            luftdruck: result.luftdruck,
-            taupunkt: result.taupunkt
+            temperatur: db.temperatur,
+            feuchtigekeit: db.feuchtigkeit,
+            luftdruck: db.luftdruck,
+            taupunkt: db.taupunkt
         },
     }]).catch(err => {
         console.error(`Error beim Einfügen: ${err.stack}`);
@@ -82,4 +91,4 @@ function saveData(result) {
 }
 
 
-saveData(result);
+saveData(db);
