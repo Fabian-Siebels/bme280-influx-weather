@@ -2,6 +2,9 @@
 
 // const Influx = require('influx');
 const bme280 = require('bme280');
+sensortemp = 0;
+
+bmestart();
 
 // const influx = new Influx.InfluxDB({
 //     host: "localhost",
@@ -96,11 +99,14 @@ const bme280 = require('bme280');
 
 // saveData(db);
 
-bme280.open().then(async sensor => {
-    // console.log(await sensor.read());
-    const sensorErg = await sensor.read();
-    console.log("Versuche Einzutragen")
-    console.log("Sensor Ergebnis= " + sensorErg);
-    await sensor.close();
-}).catch(console.log);
+function bmestart() {
+    bme280.open().then(async sensor => {
+        // console.log(await sensor.read());
+        const sensorErg = await sensor.read();
+        console.log("Versuche Einzutragen")
+        console.log("Sensor Ergebnis= " + sensorErg.temperature);
+        sensortemp = 5;
+        await sensor.close();
+    }).catch(console.log);
+}
 
