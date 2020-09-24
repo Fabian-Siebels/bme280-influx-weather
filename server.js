@@ -20,7 +20,6 @@ const bme280 = require('bme280');
 //     }]
 // });
 
-var sensorErg;
 
 var result = {
     temperatur: 25,
@@ -99,8 +98,9 @@ var db = {
 
 bme280.open().then(async sensor => {
     // console.log(await sensor.read());
-    sensorErg = await sensor.read();
+    const sensorErg = await sensor.read();
     console.log("Versuche Einzutragen")
     await sensor.close();
+    return await sensorErg.json();
 }).catch(console.log);
 
