@@ -21,60 +21,60 @@ const bme280 = require('bme280');
 // });
 
 
-var result = {
-    temperatur: 25,
-    feuchtigkeit: 50,
-    luftdruck: 970,
-    taupunkt: 17
-}
+// var result = {
+//     temperatur: 25,
+//     feuchtigkeit: 50,
+//     luftdruck: 970,
+//     taupunkt: 17
+// }
 
-t = result.temperatur;
-r = result.feuchtigkeit;
-p = result.luftdruck;
+// t = result.temperatur;
+// r = result.feuchtigkeit;
+// p = result.luftdruck;
 
-const mw = 18.016;
-const gk = 8214.3;
-const t0 = 273.15;
-var tk = t + t0;
+// const mw = 18.016;
+// const gk = 8214.3;
+// const t0 = 273.15;
+// var tk = t + t0;
 
-var a, b
-if (t >= 0) {
-    a = 7.5;
-    b = 237.3;
-} else if (t < 0) {
-    a = 7.6;
-    b = 240.7;
-}
+// var a, b
+// if (t >= 0) {
+//     a = 7.5;
+//     b = 237.3;
+// } else if (t < 0) {
+//     a = 7.6;
+//     b = 240.7;
+// }
 
-// Sättigungsdampfdruck (hPa)
-var sdd = 6.1078 * Math.pow(10, (a*t)/(b+t));
+// // Sättigungsdampfdruck (hPa)
+// var sdd = 6.1078 * Math.pow(10, (a*t)/(b+t));
  
-// Dampfdruck (hPa)
-var dd = sdd * (r/100);
+// // Dampfdruck (hPa)
+// var dd = sdd * (r/100);
                 
-// Wasserdampfdichte bzw. absolute Feuchte (g/m3)
-af = Math.pow(10,5) * mw/gk * dd/tk; 
+// // Wasserdampfdichte bzw. absolute Feuchte (g/m3)
+// af = Math.pow(10,5) * mw/gk * dd/tk; 
     
-// v
-v = Math.log10(dd/6.1078);
+// // v
+// v = Math.log10(dd/6.1078);
 
-// Taupunkttemperatur (°C)
-td = (b*v) / (a-v);
+// // Taupunkttemperatur (°C)
+// td = (b*v) / (a-v);
 
 
-console.log("Dampfdruck = "+ Math.round(dd*100)/100 + " mbar");
-console.log("Absulute Feuchte = "+ Math.round(af*100)/100 + " g/m³");
-console.log("Taupunkt = "+ Math.round(td*100)/100 + " °C");
-console.log("Ergebnis= " + sensorErg);
+// console.log("Dampfdruck = "+ Math.round(dd*100)/100 + " mbar");
+// console.log("Absulute Feuchte = "+ Math.round(af*100)/100 + " g/m³");
+// console.log("Taupunkt = "+ Math.round(td*100)/100 + " °C");
+// console.log("Ergebnis= " + sensorErg);
 
-var dbtp = Math.round(td*100)/100;
+// var dbtp = Math.round(td*100)/100;
 
-var db = {
-    temperatur: result.temperatur,
-    feuchtigkeit: result.feuchtigkeit,
-    luftdruck: result.luftdruck,
-    taupunkt: dbtp
-}
+// var db = {
+//     temperatur: result.temperatur,
+//     feuchtigkeit: result.feuchtigkeit,
+//     luftdruck: result.luftdruck,
+//     taupunkt: dbtp
+// }
         
 // function saveData(db) {
 //     influx.writePoints([{
@@ -100,7 +100,7 @@ bme280.open().then(async sensor => {
     // console.log(await sensor.read());
     const sensorErg = await sensor.read();
     console.log("Versuche Einzutragen")
+    console.log("Sensor Ergebnis= " + sensorErg);
     await sensor.close();
-    return await sensorErg.json();
 }).catch(console.log);
 
