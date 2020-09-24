@@ -1,23 +1,29 @@
 // BME280 Sensor auslesen und in die InfluxDB schreiben
 
-const Influx = require('influx');
+// const Influx = require('influx');
+const bme280 = require('bme280');
 
-const influx = new Influx.InfluxDB({
-    host: "localhost",
-    database: "bme280weather",
-    schema: [{
-        measurement: 'sensor',
-        fields: {
-            temperatur: Influx.FieldType.FLOAT,
-            feuchtigkeit: Influx.FieldType.FLOAT,
-            luftdruck: Influx.FieldType.INTEGER,
-            taupunkt: Influx.FieldType.FLOAT
-        },
-        tags: [
-            "sensor"
-        ]
-    }]
-});
+// const influx = new Influx.InfluxDB({
+//     host: "localhost",
+//     database: "bme280weather",
+//     schema: [{
+//         measurement: 'sensor',
+//         fields: {
+//             temperatur: Influx.FieldType.FLOAT,
+//             feuchtigkeit: Influx.FieldType.FLOAT,
+//             luftdruck: Influx.FieldType.INTEGER,
+//             taupunkt: Influx.FieldType.FLOAT
+//         },
+//         tags: [
+//             "sensor"
+//         ]
+//     }]
+// });
+
+bme280.open().then(async sensor => {
+    console.log(await sensor.read());
+    await sensor.close();
+}).catch(console.log);
 
 var result = {
     temperatur: 25,
@@ -73,22 +79,22 @@ var db = {
     taupunkt: dbtp
 }
         
-function saveData(db) {
-    influx.writePoints([{
-        measurement: "sensor",
-        // tags: {
-        //     keywords: (result.tags.length > 0 ? result.tags.join(",") : [])
-        // },
-        fields: {
-            temperatur: db.temperatur,
-            feuchtigekeit: db.feuchtigkeit,
-            luftdruck: db.luftdruck,
-            taupunkt: db.taupunkt
-        },
-    }]).catch(err => {
-        console.error(`Error beim Einfügen: ${err.stack}`);
-    });
-}
+// function saveData(db) {
+//     influx.writePoints([{
+//         measurement: "sensor",
+//         // tags: {
+//         //     keywords: (result.tags.length > 0 ? result.tags.join(",") : [])
+//         // },
+//         fields: {
+//             temperatur: db.temperatur,
+//             feuchtigekeit: db.feuchtigkeit,
+//             luftdruck: db.luftdruck,
+//             taupunkt: db.taupunkt
+//         },
+//     }]).catch(err => {
+//         console.error(`Error beim Einfügen: ${err.stack}`);
+//     });
+// }
 
 
-saveData(db);
+// saveData(db);
