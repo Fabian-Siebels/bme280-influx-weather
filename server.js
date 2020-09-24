@@ -22,15 +22,6 @@ const bme280 = require('bme280');
 
 var sensorErg;
 
-bme280.open().then(async sensor => {
-    // console.log(await sensor.read());
-    sensorErg = await sensor.read();
-    console.log("Versuche Einzutragen")
-    await sensor.close();
-}).catch(console.log);
-
-
-
 var result = {
     temperatur: 25,
     feuchtigkeit: 50,
@@ -105,3 +96,11 @@ var db = {
 
 
 // saveData(db);
+
+bme280.open().then(async sensor => {
+    // console.log(await sensor.read());
+    sensorErg = await sensor.read();
+    console.log("Versuche Einzutragen")
+    await sensor.close();
+}).catch(console.log);
+
