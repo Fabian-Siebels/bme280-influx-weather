@@ -20,7 +20,7 @@ const bme280 = require('bme280');
 //     }]
 // });
 
-sensorErg;
+var sensorErg;
 
 bme280.open().then(async sensor => {
     // console.log(await sensor.read());
@@ -29,7 +29,7 @@ bme280.open().then(async sensor => {
     await sensor.close();
 }).catch(console.log);
 
-console.log("Ergebnis= " + sensorErg);
+
 
 var result = {
     temperatur: 25,
@@ -75,6 +75,7 @@ td = (b*v) / (a-v);
 console.log("Dampfdruck = "+ Math.round(dd*100)/100 + " mbar");
 console.log("Absulute Feuchte = "+ Math.round(af*100)/100 + " g/m³");
 console.log("Taupunkt = "+ Math.round(td*100)/100 + " °C");
+console.log("Ergebnis= " + sensorErg);
 
 var dbtp = Math.round(td*100)/100;
 
