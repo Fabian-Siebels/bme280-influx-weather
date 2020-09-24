@@ -1,37 +1,55 @@
+// Skript zur erfassung der BME280 Messungsdaten in eine Influx Datenbank
+// Made by Fabian Siebels
+// Version 1.3
+
+// Einstellungsvariablen
+
+// 
+const serverhost = "localhost";
+const dbname = "bme280weather";
+const measurementname = "sensor";
+const messungswartezeit = "";
+
+
+
+// Import der nodeJS Pakete bme280 und influx
 const bme280 = require('bme280');
 const Influx = require('influx');
 
+// Erstellen einer Influx Klasse
 const influx = new Influx.InfluxDB({
-    host: "localhost",
-    database: "bme280weather",
+    host: serverhost,
+    database: dbname,
     schema: [{
-        measurement: 'sensor',
+        measurement: measurementname,
         fields: {
             temperatur: Influx.FieldType.FLOAT,
             feuchtigkeit: Influx.FieldType.FLOAT,
-            luftdruck: Influx.FieldType.INTEGER,
-            taupunkt: Influx.FieldType.FLOAT
+            luftdruck: Influx.FieldType.FLOAT,
+            taupunkt: Influx.FieldType.FLOAT,
+            absuluteFeuchte: Influx.FieldType.FLOAT,
+            dampfdruck: Influx.FieldType.FLOAT
         },
         tags: [
-            "sensor"
+            measurementname
         ]
     }]
 });
 
-
-
+// Starten der Messung
 bmeMessung();
 
-
+// Messung und write in die DB
 function bmeMessung() {
     bme280.open().then(async sensor => {
         const sensorErgebnis = await sensor.read();
         console.log("Messung startet!");
+        // Erfassen der Daten
+        t = sensorErgebnis.temperature; // Temperatur
+        r = sensorErgebnis.humidity;    // Feuchtigkeit
+        p = sensorErgebnis.pressure;    // Luftdruck
 
-        t = sensorErgebnis.temperature;
-        r = sensorErgebnis.humidity;
-        p = sensorErgebnis.pressure;
-
+        // Konstante Angaben fuer die Berechnung des Taupunktes, Sättigungsdruck und Wasserdampfdichte
         const mw = 18.016;
         const gk = 8214.3;
         const t0 = 273.15;
@@ -67,9 +85,9 @@ function bmeMessung() {
         console.log("Dampfdruck = "+ Math.round(dd*100)/100 + " mbar");
         console.log("Absulute Feuchte = "+ Math.round(af*100)/100 + " g/m³");
         console.log("Taupunkt = "+ Math.round(td*100)/100 + " °C");
-
+        // Schreibvorgang in die Influx Datenbank
         influx.writePoints([{
-            measurement: "sensor",
+            measurement: measurementname,
                 fields: {
                     temperatur: t.toFixed(2),
                     feuchtigkeit: r.toFixed(2),
