@@ -15,30 +15,62 @@ Zusätzlich werden die Werte Absulute Feuchte, Dampfdruck und Taupunkt berechnet
 
 ### Installation InfluxDB bereits installiert!
 1. Raspberry Pi aktuallisieren
-2. Über die ```raspi-config``` I2C aktivieren
-3. NodeJS und Node Paket Manager (NPM) installieren -> `sudo apt install nodejs npm`
-4. Repo Klonen -> `git clone https://github.com/Fabian-Siebels/bme280-influx-weather.git`
-5. Mit dem Befehl `cd bme280-influx-weather` in den Ordner wechseln
-6. NodeJS Pakete hinzufügen -> `npm i bme280 influx`
-7. Per Editor in die Datei `server.js` bearbeiten und die konstanten Variablen ändern
+2. Über die `raspi-config` I2C aktivieren
+3. NodeJS und Node Paket Manager (NPM) installieren 
+```
+sudo apt install nodejs npm
+```
+6. Repo Klonen 
+```
+git clone https://github.com/Fabian-Siebels/bme280-influx-weather.git
+```
+7. Mit dem Befehl `cd bme280-influx-weather` in den Ordner wechseln
+8. NodeJS Pakete hinzufügen 
+```
+npm i bme280 influx
+```
+9.  Per Editor in die Datei `server.js` bearbeiten und die konstanten Variablen ändern
    > Standard: Server=localhost, Datenbankname=bme280weather, Measurementname=sensor, Messunsgwartezeit=30000 ms
-8. Der Befehl `node server.js` startet den NodeJS Server und liest den Sensor aus
+11. Der Befehl `node server.js` startet den NodeJS Server und liest den Sensor aus
 ---
 ### Installation InfluxDB nicht installiert!
 1. Raspberry Pi aktuallisieren
 2. Über die `raspi-config` I2C aktivieren
-3. InfluxDB PGP Key hinzufügen -> `wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -`
-4. RaspberryOS Name in Globale Variable schreiben -> `source /etc/os-release`
-5. InfluxDB Repo hinzufügen -> `echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list`
-6. Raspberry Pi Updaten und InfluxDB installieren -> `sudo apt update && sudo apt install -y influxdb`
+3. InfluxDB PGP Key hinzufügen 
+```
+wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+```
+4. RaspberryOS Name in Globale Variable schreiben 
+```
+source /etc/os-release
+```
+5. InfluxDB Repo hinzufügen 
+```
+echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```
+6. Raspberry Pi Updaten und InfluxDB installieren 
+```
+sudo apt update && sudo apt install -y influxdb
+```
 7. Damit die InfluxDB betriebsbereit ist, muss diese noch aktiviert und gestartet werden
+   ```
    1. sudo systemctl unmask influxdb.service
    2. sudo systemctl start influxdb
    3. sudo systemctl enabke influxdb.service
-8. NodeJS und Node Packet Manger (NPM) installieren -> `sudo apt install nodejs npm`
-9. Repo Klonen -> `git clone https://github.com/Fabian-Siebels/bme280-influx-weather.git`
+   ```
+8. NodeJS und Node Packet Manger (NPM) installieren
+```
+sudo apt install nodejs npm
+```
+9.  Repo Klonen 
+```
+git clone https://github.com/Fabian-Siebels/bme280-influx-weather.git
+```
 10. Mit dem Befehl `cd bme280-influx-weather` in den Ordner wechseln
-11. NodeJS Pakete hinzufügen -> `npm i bme280 influx`
+11. NodeJS Pakete hinzufügen 
+```
+npm i bme280 influx
+```
 12. Per Editor in die Datei `server.js` bearbeiten und die konstanten Variablen ändern
    > Standard: Server=localhost, Datenbankname=bme280weather, Measurementname=sensor, Messunsgwartezeit=30000 ms
 12. Der Befehl `node server.js` startet den NodeJS Server und liest den Sensor aus
