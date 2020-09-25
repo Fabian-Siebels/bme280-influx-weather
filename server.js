@@ -46,6 +46,14 @@ const influx = new Influx.InfluxDB({
     }]
 });
 
+// Überprüfe ob die Datenbank vorhanden ist, sonnst erstellen
+influx.getDatabaseNames()
+  .then(names => {
+    if (!names.includes(dbname)) {
+      return influx.createDatabase(dbname);
+    }
+  })
+
 
 // Messung und write in die DB
 function bmeMessung() {
