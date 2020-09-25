@@ -65,25 +65,35 @@ const messungswartezeit = "30000";
 ### Hilfreiches zu InfluxDB
 
 InfluxCLI öffenen
-`influx`
+
+```
+influx
+```
 
 User erstellen
+
 `CREATE USER <name> WITH PASSWORD '<passwort>'`
 
 Rechte einstellen
+
 `GRANT ALL ON <name> TO <dbname>` 
 
 Datenbank erstellen
+
 `CREATE DATABASE <name>`
 
 Datenbank auswählen
+
 `USE <name>`
 
 Mesurements anzeigen (Tabellen)
+
 `SHOW measurements`
 
 Daten anzeigen lassen
+
 `SELECT * FROM <measurementName>`
 
 Ganze Tabelle löschen
+
 `DROP MEASUREMENT <measurementName>`
