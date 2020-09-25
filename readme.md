@@ -7,6 +7,7 @@
 - Installation InfluxDB bereits installiert
 - Installation InfluxDB nicht installiert
 - Nutzung
+- Hilfreiches zur InfluxDB
 
 ### Intro
 Das NodeJS Skript erfasst die Messdaten des BME280 über den I2C Bus und wertet diese aus.
@@ -22,7 +23,7 @@ Zusätzlich werden die Werte Absulute Feuchte, Dampfdruck und Taupunkt berechnet
 7. Per Editor in die Datei `server.js` bearbeiten und die konstanten Variablen ändern
    > Standard: Server=localhost, Datenbankname=bme280weather, Measurementname=sensor, Messunsgwartezeit=30000 ms
 8. Der Befehl `node server.js` startet den NodeJS Server und liest den Sensor aus
-
+---
 ### Installation InfluxDB nicht installiert!
 1. Raspberry Pi aktuallisieren
 2. Über die `raspi-config` I2C aktivieren
@@ -41,7 +42,7 @@ Zusätzlich werden die Werte Absulute Feuchte, Dampfdruck und Taupunkt berechnet
 12. Per Editor in die Datei `server.js` bearbeiten und die konstanten Variablen ändern
    > Standard: Server=localhost, Datenbankname=bme280weather, Measurementname=sensor, Messunsgwartezeit=30000 ms
 12. Der Befehl `node server.js` startet den NodeJS Server und liest den Sensor aus
-
+---
 ### Nutzung
 
 Um das Skript auf seine Bedürfnisse anpassen zu können, müssen die konstanten Variabeln angepasst werden.
@@ -59,3 +60,30 @@ const measurementname = "sensor";
 // WICHTIG Zeit in Millisekunden angeben!
 const messungswartezeit = "30000";
 ```
+
+---
+### Hilfreiches zu InfluxDB
+
+InfluxCLI öffenen
+`influx`
+
+User erstellen
+`CREATE USER <name> WITH PASSWORD '<passwort>'`
+
+Rechte einstellen
+`GRANT ALL ON <name> TO <dbname>` 
+
+Datenbank erstellen
+`CREATE DATABASE <name>`
+
+Datenbank auswählen
+`USE <name>`
+
+Mesurements anzeigen (Tabellen)
+`SHOW measurements`
+
+Daten anzeigen lassen
+`SELECT * FROM <measurementName>`
+
+Ganze Tabelle löschen
+`DROP MEASUREMENT <measurementName>`
