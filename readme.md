@@ -15,7 +15,7 @@ Zusätzlich werden die Werte Absulute Feuchte, Dampfdruck und Taupunkt berechnet
 
 ### Installation InfluxDB bereits installiert!
 1. Raspberry Pi aktuallisieren
-2. Über die `raspi-config` I2C aktivieren
+2. Über die ```raspi-config``` I2C aktivieren
 3. NodeJS und Node Paket Manager (NPM) installieren -> `sudo apt install nodejs npm`
 4. Repo Klonen -> `git clone https://github.com/Fabian-Siebels/bme280-influx-weather.git`
 5. Mit dem Befehl `cd bme280-influx-weather` in den Ordner wechseln
@@ -72,28 +72,42 @@ influx
 
 User erstellen
 
-`CREATE USER <name> WITH PASSWORD '<passwort>'`
+```
+CREATE USER <name> WITH PASSWORD '<passwort>'
+```
 
 Rechte einstellen
 
-`GRANT ALL ON <name> TO <dbname>` 
+```
+GRANT ALL ON <name> TO <dbname>
+``` 
 
 Datenbank erstellen
 
-`CREATE DATABASE <name>`
+```
+CREATE DATABASE <name>
+```
 
 Datenbank auswählen
 
-`USE <name>`
+```
+USE <name>
+```
 
 Mesurements anzeigen (Tabellen)
 
-`SHOW measurements`
+```
+SHOW measurements
+```
 
 Daten anzeigen lassen
 
-`SELECT * FROM <measurementName>`
+```
+SELECT * FROM <measurementName>
+```
 
 Ganze Tabelle löschen
 
-`DROP MEASUREMENT <measurementName>`
+```
+DROP MEASUREMENT <measurementName>
+```
