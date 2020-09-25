@@ -4,17 +4,27 @@
 
 // Einstellungsvariablen
 
-// 
+// Name des Hostes
 const serverhost = "localhost";
+// Name der Datenbank
 const dbname = "bme280weather";
+// Name des Measurements
 const measurementname = "sensor";
-const messungswartezeit = "";
+// Wartezeit zwischen den Messungen in ms
+// WICHTIG Zeit in Millisekunden angeben!
+const messungswartezeit = "30000";
 
 
 
 // Import der nodeJS Pakete bme280 und influx
 const bme280 = require('bme280');
 const Influx = require('influx');
+
+// Starten der Messung
+bmeMessung();
+
+// Interval zur Ausfuehrung der Messung
+setInterval(bmeMessung, messungswartezeit);
 
 // Erstellen einer Influx Klasse
 const influx = new Influx.InfluxDB({
@@ -36,8 +46,6 @@ const influx = new Influx.InfluxDB({
     }]
 });
 
-// Starten der Messung
-bmeMessung();
 
 // Messung und write in die DB
 function bmeMessung() {
