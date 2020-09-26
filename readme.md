@@ -56,7 +56,7 @@ sudo apt update && sudo apt install -y influxdb
    ```
    1. sudo systemctl unmask influxdb.service
    2. sudo systemctl start influxdb
-   3. sudo systemctl enabke influxdb.service
+   3. sudo systemctl enable influxdb.service
    ```
 8. NodeJS und Node Packet Manger (NPM) installieren
 ```
