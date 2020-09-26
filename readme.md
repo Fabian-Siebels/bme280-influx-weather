@@ -111,7 +111,7 @@ CREATE USER <name> WITH PASSWORD '<passwort>'
 Rechte einstellen
 
 ```
-GRANT ALL ON <name> TO <dbname>
+GRANT ALL ON <dbname> TO <name>
 ``` 
 
 Datenbank erstellen
